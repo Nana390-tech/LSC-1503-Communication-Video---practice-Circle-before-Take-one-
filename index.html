@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reflection Report</title>
+<style>
+:root{
+  --ink:#3b2a24; --ink2:#5a4038; --turq:#1fb5a8; --turq2:#138a80; --turqsoft:#e2f6f4; --saff:#f2a541; --saffsoft:#fff3e0;
+  --bg:#f7f5f2; --card:#fff; --line:#e6e0da; --muted:#6f625c; --rose:#e05a6d;
+  --p1:#D7263D; --p2:#2B7DE9; --p3:#7B4BD6; --p4:#1FA37A; --p5:#E8851A;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;font-size:16px}
+button{font-family:inherit;cursor:pointer}
+input,textarea{font-family:inherit;font-size:16px}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px}
+header{background:var(--ink);color:#fff;padding:24px 0 54px;position:relative;overflow:hidden}
+header:after{content:"";position:absolute;right:-60px;top:-70px;width:230px;height:230px;border-radius:50%;background:var(--turq);opacity:.35}
+header .wrap{position:relative;z-index:1}
+.tag{display:inline-block;background:var(--saff);color:var(--ink);font-weight:800;font-size:12px;letter-spacing:1px;padding:4px 12px;border-radius:20px}
+header h1{margin:8px 0 2px;font-size:clamp(28px,6vw,40px)}
+header h1 span{color:var(--saff)}
+header p{margin:0;opacity:.92}
+@media(max-width:600px){header:after{width:130px;height:130px;right:-50px;top:-50px}}
+.top{position:sticky;top:0;z-index:20;background:#fff;border-bottom:3px solid var(--turq);box-shadow:0 3px 10px rgba(59,42,36,.06)}
+.top .wrap{display:flex;align-items:center;gap:14px;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
+.steps{display:flex;gap:6px}
+.steps i{font-style:normal;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:800;background:#eee8e2;color:var(--muted)}
+.steps i.on{background:var(--turq);color:#fff}
+.bar{flex:1;min-width:140px;height:10px;background:#eee8e2;border-radius:10px;overflow:hidden}
+.bar b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--turq),var(--saff));transition:width .4s}
+.pct{font-weight:800;color:var(--turq2)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:16px 0;box-shadow:0 6px 18px rgba(59,42,36,.06)}
+.lift{margin-top:-36px;position:relative;z-index:1}
+h2{margin:0 0 6px;font-size:21px;display:flex;align-items:center;gap:10px}
+.num{width:34px;height:34px;border-radius:50%;color:#fff;display:grid;place-items:center;font-size:16px;font-weight:900;flex:none}
+.tick{margin-left:auto;font-size:20px}
+.sub{color:var(--muted);margin:0 0 12px;font-size:15px}
+label{display:block;font-weight:700;font-size:14px;margin:12px 0 5px}
+input[type=text],textarea{width:100%;padding:11px 13px;border:2px solid var(--line);border-radius:12px;background:#fdfcfb;color:var(--ink)}
+input:focus,textarea:focus{outline:none;border-color:var(--turq)}
+textarea{min-height:62px;resize:vertical}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:640px){.grid2,.grid3{grid-template-columns:1fr}}
+.conf{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)}
+.pill{display:inline-block;color:#fff;border-radius:20px;padding:5px 14px;font-weight:800;font-size:14px}
+.dots button{width:40px;height:40px;border-radius:50%;border:2px solid var(--line);background:#fff;font-weight:800;margin-left:4px;color:var(--ink)}
+.dots button.on{background:var(--turq);border-color:var(--turq);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.chip{border:2px solid var(--line);background:#fff;border-radius:30px;padding:5px 12px;font-size:14px;font-weight:700;color:var(--ink)}
+.chip:hover{border-color:var(--turq)}
+.chip.on{background:var(--turq);border-color:var(--turq);color:#fff}
+.starter{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{border:none;border-radius:12px;padding:12px 18px;font-weight:800;font-size:15px;color:#fff;background:var(--ink)}
+.btn.turq{background:var(--turq2)}.btn.saff{background:var(--saff);color:var(--ink)}.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--ink)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.warn{color:var(--rose);font-weight:700;font-size:14px;margin-top:8px;min-height:20px;text-align:center}
+.hidden{display:none}
+.tip{background:var(--saffsoft);border-radius:12px;padding:10px 14px;font-size:14px;margin-top:12px}
+/* preview */
+.rep{border:3px solid var(--ink);border-radius:16px;overflow:hidden;background:#fff}
+.rep-h{background:var(--ink);color:#fff;padding:14px 18px}
+.rep-h b{font-size:21px;display:block}
+.rep-h span{font-size:14px;opacity:.9}
+.rep-b{padding:14px 18px}
+.rep-s{margin-bottom:12px}
+.rep-s h4{margin:0 0 6px;font-size:15px;color:var(--turq2);text-transform:uppercase;letter-spacing:.5px}
+.cb{display:flex;align-items:center;gap:8px;font-size:14px;margin:3px 0}
+.cb span:first-child{width:170px;flex:none}
+.cb .tr{flex:1;height:12px;background:#eee8e2;border-radius:6px;overflow:hidden}
+.cb .tr i{display:block;height:100%}
+.rep p{margin:2px 0;font-size:14px}
+canvas#cf{position:fixed;inset:0;pointer-events:none;z-index:60}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:30px;font-weight:700;z-index:70;transition:.35s;max-width:90%;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:18px 16px 34px}
+#printCard{display:none}
+@media print{
+  body{background:#fff}
+  body > *:not(#printCard){display:none!important}
+  #printCard{display:block!important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<canvas id="cf"></canvas>
+<header>
+  <div class="wrap">
+    <span class="tag">LSC 1503 · PRACTICE CIRCLE · EVALUATE</span>
+    <h1>My Reflection <span>Report</span></h1>
+    <p>Three quick steps, then upload your report to Padlet.</p>
+  </div>
+</header>
+<div class="top"><div class="wrap">
+  <span class="steps" id="steps"><i>👤</i><i>1</i><i>2</i><i>3</i></span>
+  <div class="bar"><b id="barFill"></b></div><span class="pct" id="pct">0%</span>
+</div></div>
+
+<div class="wrap">
+  <!-- ME + TEAM -->
+  <div class="card lift">
+    <h2><span class="num" style="background:var(--saff);color:var(--ink)">👤</span>Me and my team <span class="tick" id="t0"></span></h2>
+    <div class="grid2">
+      <div><label for="name">Full name</label><input type="text" id="name" data-k="name" placeholder="e.g. Mariam Al Ketbi"></div>
+      <div><label for="sid">Student ID</label><input type="text" id="sid" data-k="sid" placeholder="H00xxxxxx"></div>
+    </div>
+    <label for="team">Team name</label>
+    <input type="text" id="team" data-k="team" placeholder="e.g. Team Falcons">
+    <label>My teammates</label>
+    <div class="grid2">
+      <input type="text" data-k="m1" placeholder="Teammate 1" aria-label="Teammate 1">
+      <input type="text" data-k="m2" placeholder="Teammate 2 (leave empty if you were a pair)" aria-label="Teammate 2">
+    </div>
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="impBtn">📥 Import my Practice Circle backup</button><input type="file" id="impFile" accept=".json,application/json" hidden><span style="font-size:13px;color:var(--muted)">Optional — fills in what you already wrote.</span></div>
+  </div>
+
+  <!-- 1 CONFIDENCE -->
+  <div class="card">
+    <h2><span class="num" style="background:var(--turq)">1</span>Confidence check <span class="tick" id="t1"></span></h2>
+    <p class="sub">How ready is each part? <b>1 = not yet · 5 = ready to record</b></p>
+    <div id="conf"></div>
+  </div>
+
+  <!-- 2 FIXES -->
+  <div class="card">
+    <h2><span class="num" style="background:var(--turq)">2</span>My top 3 fixes before Take One <span class="tick" id="t2"></span></h2>
+    <p class="sub">Start with a verb. Most important first. Tap an idea to use it.</p>
+    <div class="chips" id="fixIdeas"></div>
+    <div class="grid3" style="margin-top:6px">
+      <div><label for="f1">Fix 1</label><input type="text" id="f1" data-k="f1" placeholder="Add…"></div>
+      <div><label for="f2">Fix 2</label><input type="text" id="f2" data-k="f2" placeholder="Change…"></div>
+      <div><label for="f3">Fix 3</label><input type="text" id="f3" data-k="f3" placeholder="Slow down…"></div>
+    </div>
+  </div>
+
+  <!-- 3 LOOK BACK -->
+  <div class="card">
+    <h2><span class="num" style="background:var(--turq)">3</span>Look back: did you learn it? <span class="tick" id="t3"></span></h2>
+    <label>🎯 W — I wanted to learn… (tap your goal or write it)</label>
+    <div class="chips" id="goals"></div>
+    <input type="text" data-k="goal" style="margin-top:8px" placeholder="Today I wanted to learn how to…" aria-label="My goal">
+    <div class="grid2">
+      <div><label for="now">🟢 L — Now I can…</label><textarea id="now" data-k="now" placeholder="Now I can…"></textarea></div>
+      <div><label for="need">🟣 I still need to practise…</label><textarea id="need" data-k="need" placeholder="Before Take One, I still need to…"></textarea></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row" style="justify-content:center"><button class="btn saff" id="makeBtn">✨ Make my reflection report</button></div>
+    <div class="warn" id="warn"></div>
+  </div>
+
+  <div class="card hidden" id="result">
+    <h2 style="justify-content:center">🎉 Your report is ready!</h2>
+    <div id="preview"></div>
+    <div class="row" style="justify-content:center;margin-top:14px">
+      <button class="btn turq" id="pngBtn">🖼️ Download image for Padlet</button>
+      <button class="btn ghost" id="printBtn">🖨️ Print / Save as PDF</button>
+      <button class="btn ghost" id="copyBtn">📋 Copy text</button>
+    </div>
+    <div class="tip">📌 <b>Upload to Padlet:</b> open the Padlet → <b>+</b> → upload your image (or PDF). Add your name as the title.<br>If the download doesn't start, <a href="#" id="newTab">open this page in a new tab</a> and try again.</div>
+  </div>
+</div>
+<footer>Designed by: Nazila Motahari · LSC 1503 Professional Spoken Communication · HCT</footer>
+<div id="printCard"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const PARTS=[["Introduction","#D7263D"],["LPA Reflection","#2B7DE9"],["Study Skill","#7B4BD6"],["Area for Improvement","#1FA37A"],["Conclusion","#E8851A"]];
+const GOALS=["Speak without reading my script","Give helpful feedback as a coach","Time each part of my video","Feel confident before I record"];
+const FIXIDEAS=["Add my ID card","Change my study skill to one of the 7","Say why I chose my LPA","Add SO WHAT? and NOW WHAT?","Slow down and pause","Look at the camera more","Add a thank-you at the end"];
+const S={v:{},conf:{}};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const has=k=>!!(S.v[k]||"").trim();
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),2800);}
+function bind(){document.querySelectorAll("[data-k]").forEach(el=>{el.value=S.v[el.dataset.k]||"";if(el._b)return;el._b=1;el.addEventListener("input",()=>{S.v[el.dataset.k]=el.value;if(el.dataset.k==="goal")renderGoals();update();});});}
+function renderConf(){$("conf").innerHTML=PARTS.map((p,i)=>`<div class="conf"><span class="pill" style="background:${p[1]}">${i+1}. ${p[0]}</span><span class="dots">${[1,2,3,4,5].map(n=>`<button data-p="${i}" data-n="${n}" class="${S.conf[i]===n?"on":""}" aria-label="${p[0]} ${n}">${n}</button>`).join("")}</span></div>`).join("");}
+$("conf").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S.conf[b.dataset.p]=+b.dataset.n;renderConf();update();});
+function renderIdeas(){$("fixIdeas").innerHTML=FIXIDEAS.map((f,i)=>`<button class="chip" data-i="${i}">➕ ${esc(f)}</button>`).join("");}
+$("fixIdeas").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;const k=["f1","f2","f3"].find(k=>!has(k));if(!k){toast("All three fix boxes are full.");return;}S.v[k]=FIXIDEAS[+b.dataset.i];bind();update();});
+function renderGoals(){$("goals").innerHTML=GOALS.map((g,i)=>`<button class="chip ${S.v.goal===g?"on":""}" data-i="${i}">${esc(g)}</button>`).join("");}
+$("goals").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;S.v.goal=GOALS[+b.dataset.i];bind();renderGoals();update();});
+const steps=()=>[has("name")&&has("team"),Object.keys(S.conf).length===5,has("f1"),has("goal")&&has("now")];
+function update(){const st=steps(),n=st.filter(Boolean).length;st.forEach((ok,i)=>$("t"+i).textContent=ok?"✅":"");
+  document.querySelectorAll("#steps i").forEach((el,i)=>el.classList.toggle("on",st[i]));$("barFill").style.width=n/4*100+"%";$("pct").textContent=Math.round(n/4*100)+"%";}
+const members=()=>[S.v.m1,S.v.m2].map(x=>(x||"").trim()).filter(Boolean);
+const fixes=()=>[S.v.f1,S.v.f2,S.v.f3].map(x=>(x||"").trim()).filter(Boolean);
+const dateStr=()=>new Date().toLocaleDateString("en-GB");
+
+/* preview */
+function reportHTML(){
+  return `<div class="rep"><div class="rep-h"><b>📝 ${esc(S.v.name)}'s reflection report</b><span>${esc(S.v.sid||"")}${S.v.sid?" · ":""}Team: ${esc(S.v.team)}${members().length?" ("+members().map(esc).join(", ")+")":""} · ${dateStr()}</span></div><div class="rep-b">
+   <div class="rep-s"><h4>1 · Confidence check</h4>${PARTS.map((p,i)=>`<div class="cb"><span>${i+1}. ${p[0]}</span><span class="tr"><i style="width:${S.conf[i]*20}%;background:${p[1]}"></i></span><b>${S.conf[i]}/5</b></div>`).join("")}</div>
+   <div class="rep-s"><h4>2 · My top fixes before Take One</h4>${fixes().map((f,i)=>`<p>${i+1}. ${esc(f)}</p>`).join("")}</div>
+   <div class="rep-s" style="margin:0"><h4>3 · Look back</h4><p><b>I wanted to learn:</b> ${esc(S.v.goal)}</p><p><b>Now I can:</b> ${esc(S.v.now)}</p>${has("need")?`<p><b>I still need to practise:</b> ${esc(S.v.need)}</p>`:""}</div>
+
+  </div></div>`;
+}
+$("makeBtn").onclick=()=>{const st=steps(),names=["your name and team name","a rating for all 5 parts","at least one fix","your goal and “Now I can…”"];
+  const miss=names.filter((n,i)=>!st[i]);if(miss.length){$("warn").textContent="✋ Please add: "+miss.join(", ")+".";return;}
+  $("warn").textContent="";$("preview").innerHTML=reportHTML();$("printCard").innerHTML=reportHTML();$("result").classList.remove("hidden");$("result").scrollIntoView({behavior:"smooth"});confetti();};
+
+/* PNG */
+function wrapT(x,t,X,Y,w,lh,max){const ws=String(t||"").split(/\s+/).filter(Boolean);let line="",L=[];ws.forEach(wd=>{const s=line?line+" "+wd:wd;if(x.measureText(s).width>w&&line){L.push(line);line=wd;}else line=s;});if(line)L.push(line);
+  if(L.length>max){L=L.slice(0,max);L[max-1]=L[max-1].replace(/\s*\S*$/,"")+"…";}L.forEach((l,i)=>x.fillText(l,X,Y+i*lh));return Y+L.length*lh;}
+function rr(x,X,Y,w,h,r,f){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+w,Y,X+w,Y+h,r);x.arcTo(X+w,Y+h,X,Y+h,r);x.arcTo(X,Y+h,X,Y,r);x.arcTo(X,Y,X+w,Y,r);x.closePath();x.fillStyle=f;x.fill();}
+function drawPNG(){
+  const W=1080,H=1110,c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d"),F='"Segoe UI",Tahoma,Arial,sans-serif';
+  x.fillStyle="#f7f5f2";x.fillRect(0,0,W,H);x.fillStyle="#3b2a24";x.fillRect(0,0,W,170);
+  x.fillStyle="rgba(31,181,168,.4)";x.beginPath();x.arc(W-30,-20,170,0,Math.PI*2);x.fill();
+  x.fillStyle="#f2a541";x.font=`800 18px ${F}`;x.fillText("LSC 1503 · PRACTICE CIRCLE · REFLECTION REPORT",44,46);
+  x.fillStyle="#fff";x.font=`800 40px ${F}`;wrapT(x,`${S.v.name}'s reflection report`,44,96,W-120,44,1);
+  x.font=`500 21px ${F}`;x.fillStyle="#f1e6df";
+  wrapT(x,[S.v.sid,"Team: "+S.v.team+(members().length?" ("+members().join(", ")+")":""),dateStr()].filter(Boolean).join("  ·  "),44,140,W-90,26,1);
+  let y=200;const X=44,CW=W-88;
+  const box=(title,h,draw)=>{rr(x,X,y,CW,h,18,"#ffffff");x.fillStyle="#138a80";x.font=`800 20px ${F}`;x.fillText(title,X+24,y+38);draw(y+70);y+=h+20;};
+  box("1 · CONFIDENCE CHECK",300,yy=>{PARTS.forEach((p,i)=>{const ry=yy+i*44;x.fillStyle="#3b2a24";x.font=`600 20px ${F}`;x.fillText(`${i+1}. ${p[0]}`,X+24,ry+8);
+    rr(x,X+300,ry-10,CW-420,22,11,"#eee8e2");rr(x,X+300,ry-10,(CW-420)*S.conf[i]/5,22,11,p[1]);x.fillStyle="#3b2a24";x.font=`800 20px ${F}`;x.fillText(S.conf[i]+"/5",X+CW-96,ry+8);});});
+  box("2 · MY TOP FIXES BEFORE TAKE ONE",190,yy=>{x.font=`500 21px ${F}`;x.fillStyle="#3b2a24";fixes().forEach((f,i)=>wrapT(x,`${i+1}. ${f}`,X+24,yy+i*36,CW-48,28,1));});
+  box("3 · LOOK BACK",H-y-80,yy=>{let t=yy;const row=(lab,val,max)=>{x.font=`800 19px ${F}`;x.fillStyle="#5a4038";x.fillText(lab,X+24,t);t+=28;x.font=`500 21px ${F}`;x.fillStyle="#3b2a24";t=wrapT(x,val,X+24,t,CW-48,27,max)+10;};
+    row("I wanted to learn:",S.v.goal,1);row("Now I can:",S.v.now,2);if(has("need"))row("I still need to practise:",S.v.need,2);});
+  x.fillStyle="#6f625c";x.font=`600 16px ${F}`;x.fillText("Designed by: Nazila Motahari · HCT",X,H-34);x.textAlign="right";x.fillStyle="#138a80";x.font=`800 16px ${F}`;x.fillText("Next: record Take One 🎥",W-44,H-34);x.textAlign="left";
+  return c;
+}
+const fname=e=>"Reflection_"+(S.v.name||"student").trim().replace(/\s+/g,"_")+"."+e;
+$("pngBtn").onclick=()=>{drawPNG().toBlob(b=>{const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=fname("png");document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);toast("🖼️ Image saved — now upload it to Padlet!");});};
+$("printBtn").onclick=()=>window.print();
+function plain(){return `📝 ${S.v.name} (${S.v.sid||""}) — Team ${S.v.team}${members().length?" ("+members().join(", ")+")":""}
+1. Confidence: ${PARTS.map((p,i)=>p[0]+" "+S.conf[i]+"/5").join(" · ")}
+2. Top fixes: ${fixes().join(" · ")}
+3. I wanted to learn: ${S.v.goal} — Now I can: ${S.v.now}${has("need")?" — Still need: "+S.v.need:""}`;}
+$("copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(plain());toast("📋 Copied — paste it on Padlet.");}catch(e){toast("Copy is blocked here — use the image or PDF instead.");}};
+$("newTab").onclick=e=>{e.preventDefault();window.open(location.href,"_blank");};
+$("impBtn").onclick=()=>$("impFile").click();
+$("impFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result),v=d.v||{};
+  if(d.app!=="Practice Circle"){toast("⚠️ This is not a Practice Circle backup.");return;}
+  const map={name:"name",sid:"sid",f1:"f1",f2:"f2",f3:"f3",kwl_w:"goal",kwl_l:"now",kwl_need:"need"};
+  Object.entries(map).forEach(([a,b])=>{if(v[a]&&!has(b))S.v[b]=v[a];});
+  const others=["gA","gB","gC"].map(k=>(v[k]||"").trim()).filter(n=>n&&n!==(v.name||"").trim());if(!has("m1")&&others[0])S.v.m1=others[0];if(!has("m2")&&others[1])S.v.m2=others[1];
+  if(d.g&&d.g.conf)Object.entries(d.g.conf).forEach(([k,n])=>{if(!S.conf[k])S.conf[k]=n;});
+  bind();renderConf();renderGoals();update();toast("📥 Imported! Check each step and add your team name.");}catch(err){toast("⚠️ That file could not be read.");}};r.readAsText(f);e.target.value="";};
+function confetti(){const c=$("cf"),x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;const cols=["#1fb5a8","#f2a541","#e05a6d","#3b2a24","#2B7DE9"];
+  const P=Array.from({length:140},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*.4,r:4+Math.random()*6,c:cols[Math.floor(Math.random()*5)],vy:2+Math.random()*3,vx:-1.5+Math.random()*3,a:Math.random()*6}));
+  let f=0;(function t(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.y+=p.vy;p.x+=p.vx;p.a+=.1;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.fillRect(-p.r/2,-p.r/2,p.r,p.r*1.6);x.restore();});if(++f<160)requestAnimationFrame(t);else x.clearRect(0,0,c.width,c.height);})();}
+bind();renderConf();renderIdeas();renderGoals();update();
+</script>
+</body>
+</html>
